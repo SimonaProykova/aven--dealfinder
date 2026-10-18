@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avène DealFinder & Smart Shopping Basket</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💧</text></svg>">
+</head>
+<body>
+
+  <!-- Application Header -->
+  <header>
+    <div class="header-container">
+      <div class="brand-wrapper">
+        <div class="brand-icon">💧</div>
+        <div>
+          <div class="brand-title">Avène DealFinder</div>
+          <div class="brand-subtitle">European Dermo-Cosmetics Comparator & Smart Basket Matcher</div>
+        </div>
+      </div>
+
+      <!-- Main Navigation Tabs -->
+      <nav class="nav-tabs" aria-label="Main Navigation">
+        <button id="tab-catalog-btn" class="nav-tab-btn active">
+          <span>🛍️ Product Catalog & Deals</span>
+        </button>
+        <button id="tab-basket-btn" class="nav-tab-btn">
+          <span>🛒 Smart Basket Matcher</span>
+          <span id="basket-count-badge" class="basket-count-badge">3</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+
+    <!-- Top Hero Banner with Live Database Metrics -->
+    <section class="hero-card">
+      <div>
+        <h1 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 0.35rem; letter-spacing: -0.02em;">
+          Avène Creams Promotional Database & Smart Deal Matcher
+        </h1>
+        <p style="font-size: 0.875rem; color: #64748b; max-width: 680px;">
+          Explore verified face & body creams from Eau Thermale Avène across major European pharmacies. Compare unit prices (€/100ml) and let our Deal Matcher find the cheapest pharmacy for your entire shopping list.
+        </p>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-box">
+          <div class="stat-number">57</div>
+          <div class="stat-label">Creams Cataloged</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">17</div>
+          <div class="stat-label">Active Promos</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">4</div>
+          <div class="stat-label">EU Pharmacies</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" style="color: #e11d48;">-15%</div>
+          <div class="stat-label">Max Discount</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: CATALOG & DATABASE SHOWCASE        -->
+    <!-- ========================================== -->
+    <section id="catalog-view">
+      <!-- Search, Store, Sort & Category Controls -->
+      <div class="controls-card">
+        <div class="search-and-selects">
+          <!-- Live Search Bar -->
+          <div class="input-group">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="search-input" 
+              class="search-input" 
+              placeholder="Search by cream name, line (e.g. Cicalfate, Hydrance), or category..."
+              autocomplete="off"
+            >
+          </div>
+
+          <!-- Store Filter Dropdown -->
+          <div>
+            <select id="store-filter-select" class="select-control">
+              <option value="all">🏪 All Pharmacies</option>
+              <option value="Cocooncenter">Cocooncenter (FR/EU)</option>
+              <option value="Easyparapharmacie">Easyparapharmacie (FR)</option>
+              <option value="DocMorris">DocMorris (DE/EU)</option>
+              <option value="Newpharma">Newpharma (BE/FR)</option>
+            </select>
+          </div>
+
+          <!-- Dynamic Sorting Options -->
+          <div>
+            <select id="sort-select" class="select-control">
+              <option value="discount_desc">🔥 Highest Discount First</option>
+              <option value="unit_asc">💶 Lowest Price per 100ml</option>
+              <option value="price_asc">🏷️ Price: Low to High</option>
+              <option value="price_desc">🏷️ Price: High to Low</option>
+              <option value="name_asc">🔤 Product Name: A to Z</option>
+            </select>
+          </div>
+
+          <!-- Discount Only Toggle -->
+          <div style="display: flex; align-items: center; justify-content: flex-end; padding: 0 0.5rem;">
+            <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; user-select: none;">
+              <input type="checkbox" id="discounted-only-toggle" style="width: 16px; height: 16px; accent-color: #0d9488;">
+              <span>On Sale Only</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Line Filter Pills -->
+        <div id="line-pills-container" class="line-pills">
+          <!-- Dynamic Pills will render here -->
+        </div>
+
+        <!-- Result Count Meta -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; font-size: 0.75rem; color: #64748b;">
+          <span id="catalog-count-span">57 products found</span>
+          <span>All prices in Euros (€) with unit cost per 100ml</span>
+        </div>
+      </div>
+
+      <!-- Product Cards Grid -->
+      <div id="products-grid" class="products-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: SMART BASKET & DEAL MATCHER        -->
+    <!-- ========================================== -->
+    <section id="basket-view" style="display: none;">
+      <div class="smart-basket-container">
+        
+        <!-- Left Column: Custom Shopping List Builder -->
+        <div class="basket-builder-card">
+          <h2 class="card-section-title">
+            <span>🛒 Smart Shopping List Builder</span>
+          </h2>
+          <p class="card-section-desc">
+            Type your custom skincare requirements or select a dermatologist-curated preset routine. The Deal Matcher will compute the lowest basket total across all 4 pharmacies.
+          </p>
+
+          <!-- Routine Presets -->
+          <div class="presets-container">
+            <div class="preset-title">⚡ Quick Routine Presets</div>
+            <div class="preset-pills">
+              <button class="preset-pill" data-preset="barrier">🩹 Barrier Repair Duo (Cicalfate+)</button>
+              <button class="preset-pill" data-preset="hydration">💧 24H Intense Hydration (Hydrance)</button>
+              <button class="preset-pill" data-preset="antiaging">⏳ Anti-Aging Cell Renewal (Hyaluron B3)</button>
+              <button class="preset-pill" data-preset="dryness">🛡️ Atopic & Eczema Relief (XeraCalm)</button>
+            </div>
+          </div>
+
+          <!-- Add Item Form -->
+          <div class="add-item-form">
+            <input 
+              type="text" 
+              id="custom-item-input" 
+              class="search-input" 
+              style="padding-left: 1rem;" 
+              placeholder="e.g. Cleanance Comedomed, Hydrance UV..."
+            >
+            <button id="add-item-btn" class="btn-primary">+ Add Item</button>
+          </div>
+
+          <!-- Shopping List Items Container -->
+          <div id="basket-items-list" class="basket-items-list">
+            <!-- Dynamic Items Rows rendered by app.js -->
+          </div>
+        </div>
+
+        <!-- Right Column: Cross-Store Deal Breakdown & Comparison -->
+        <div>
+          <h2 class="card-section-title" style="margin-bottom: 0.25rem;">
+            <span>⚖️ Cross-Store Basket Price Comparison</span>
+          </h2>
+          <p class="card-section-desc">
+            Live calculation of total cost, availability, and promotional savings for your full basket across stores.
+          </p>
+
+          <!-- Store Comparison Cards (Winner highlighted) -->
+          <div id="store-comparisons-grid" class="store-comparisons-grid">
+            <!-- Rendered dynamically by app.js -->
+          </div>
+
+          <!-- Itemized Cross-Store Price Matrix -->
+          <div class="matrix-card">
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.75rem;">
+              📊 Itemized Price Breakdown Matrix
+            </h3>
+            <table class="matrix-table">
+              <thead>
+                <tr id="matrix-table-head">
+                  <th style="min-width: 170px;">Shopping List Item</th>
+                  <th>Cocooncenter</th>
+                  <th>Easyparapharmacie</th>
+                  <th>DocMorris</th>
+                  <th>Newpharma</th>
+                </tr>
+              </thead>
+              <tbody id="matrix-table-body">
+                <!-- Rendered dynamically by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Toast Notice -->
+  <div id="toast-notice" class="toast-notice">
+    Item updated in your Smart Basket
+  </div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
